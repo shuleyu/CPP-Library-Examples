@@ -10,8 +10,8 @@ Code     := UniQUEcoDeName
 
 # Compile flags & library dirs.
 COMP     := c++ -std=c++17 -Wall -fPIC
-INCDIR   := -I$(SAC)/include -I./CPP-Library-Headers
-LIBDIR   := -L$(SAC)/lib
+INCDIR   := -I/usr/local/include -I$(SAC)/include -I./CPP-Library-Headers
+LIBDIR   := -L/usr/local/lib -L$(SAC)/lib
 LIBS     := -lsac -lsacio -lgmt -lmariadb -larmadillo -lgsl -lgslcblas -lnetcdf -lfftw3 -lpthread -lm # -lmlpack
 
 # by default, compile all cpp files.
