@@ -6,6 +6,7 @@ using namespace std;
 
 int main(){
 
+    MariaDB::Query("create database if not exists playground");
     MariaDB::Query("drop table if exists playground.T1_BU");
     MariaDB::Query("create table playground.T1_BU(PairName varchar(30) primary key, Lat double comment \"Capital field name?\", lon double, flag boolean)");
     vector<string> pairnames{"2015_R32A","2014_R32A","2013_R32A","2012_R32A","2012_R34A"};
