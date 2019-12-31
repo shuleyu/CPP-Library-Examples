@@ -4,22 +4,26 @@
 
 #include<SACSignals.hpp>
 #include<ShiftPhase.hpp>
+#include<GetHomeDir.hpp>
 
 using namespace std;
 
 int main(){
 
+    string homeDir=GetHomeDir();
+
 //     SACSignals A("data/SACSignals_in");
     vector<string> infiles{
-        "/home/shule/PROJ/t056.Data/200502050334/200502050334.XO.BS15A.HHT.sac"
-//         "/home/shule/PROJ/t056.Data/201204141056/201204141056.1C.BLS.HHT.sac",
-//         "/home/shule/PROJ/t041.DATA/NorthAmerican/200608250044/200608250044.TA.109C.BHT.sac",
-//         "/home/shule/PROJ/t041.DATA/NorthAmerican/200608250044/200608250044.TA.115A.BHT.sac",
-//         "/home/shule/PROJ/t041.DATA/NorthAmerican/200608250044/200608250044.TA.116A.BHT.sac",
-//         "/home/shule/PROJ/t041.DATA/NorthAmerican/200608250044/200608250044.XQ.A03T.BHT.sac",
-//         "/home/shule/PROJ/t041.DATA/NorthAmerican/200608250044/200608250044.XQ.A04T.BHT.sac",
-//         "/home/shule/PROJ/t041.DATA/NorthAmerican/200608250044/200608250044.XQ.A09T.BHT.sac",
-//         "/home/shule/PROJ/t041.DATA/NorthAmerican/200608250044/200608250044.XQ.A15T.BHT.sac"
+
+        homeDir+"/PROJ/t056.Data/200502050334/200502050334.XO.BS15A.HHT.sac",
+        homeDir+"/PROJ/t056.Data/201204141056/201204141056.1C.BLS.HHT.sac",
+        homeDir+"/PROJ/t041.DATA/NorthAmerican/200608250044/200608250044.TA.109C.BHT.sac",
+        homeDir+"/PROJ/t041.DATA/NorthAmerican/200608250044/200608250044.TA.115A.BHT.sac",
+        homeDir+"/PROJ/t041.DATA/NorthAmerican/200608250044/200608250044.TA.116A.BHT.sac",
+        homeDir+"/PROJ/t041.DATA/NorthAmerican/200608250044/200608250044.XQ.A03T.BHT.sac",
+        homeDir+"/PROJ/t041.DATA/NorthAmerican/200608250044/200608250044.XQ.A04T.BHT.sac",
+        homeDir+"/PROJ/t041.DATA/NorthAmerican/200608250044/200608250044.XQ.A09T.BHT.sac",
+        homeDir+"/PROJ/t041.DATA/NorthAmerican/200608250044/200608250044.XQ.A15T.BHT.sac"
     };
     SACSignals A(infiles);
     auto B=SACSignals(A,set<size_t> {0,0});
@@ -70,7 +74,7 @@ int main(){
 //         cout << st[i] << " " << ans.first.first[i] << " " << ans.first.second[i] << endl;
 //     A.CheckAndCutToWindow(A.GetTravelTimes("S"),-50,50);
 //     A.ShiftTime(A.GetTravelTimes("S"));
-//     A.DumpWaveforms("/home/shule/new","StationName","201500","_","frs");
+//     A.DumpWaveforms(homeDir+"/new","StationName","201500","_","frs");
 
 //     A.NormalizeToSignal();
 //     A.ReCalcAz();

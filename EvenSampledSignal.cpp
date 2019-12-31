@@ -34,7 +34,7 @@ int main(){
 //     auto B=A;
 //     B.FindPeakAround(20,4);
 //     cout << A.PeakTime() << " " << B.PeakTime() << endl;
-//     cout << CompareSignal(A,B) << endl;
+//     cout << A.CompareSignal(B) << endl;
 
 //     cout << A.GetAmpMultiplier() << endl;
 

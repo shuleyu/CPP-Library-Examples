@@ -9,6 +9,7 @@
 #include<Butterworth.hpp>
 #include<TriangleSignal.hpp>
 #include<WaterLevelDecon.hpp>
+#include<GetHomeDir.hpp>
 
 using namespace std;
 
@@ -88,7 +89,7 @@ int main(){
     double x,y,MaxVal;
     vector<double> ScS,Source;
 
-    fpin.open("/home/shule/PROJ/t041.CA_D/Stretch/200608250044/S.modifiedsource");
+    fpin.open(GetHomeDir()+"/PROJ/t041.CA_D/Stretch/200608250044/S.modifiedsource");
     MaxVal=numeric_limits<double>::lowest();
     while (fpin >> x >> y) {
         if (MaxVal<fabs(y)) {
@@ -99,7 +100,7 @@ int main(){
     }
     fpin.close();
 
-    fpin.open("/home/shule/PROJ/t041.CA_D/ESF/200608250044_ScS/1/SMER.waveform");
+    fpin.open(GetHomeDir()+"/PROJ/t041.CA_D/ESF/200608250044_ScS/1/SMER.waveform");
     MaxVal=numeric_limits<double>::lowest();
     while (fpin >> x >> y) {
         if (MaxVal<fabs(y)) {

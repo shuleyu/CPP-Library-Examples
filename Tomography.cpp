@@ -3,12 +3,13 @@
 #include<Tomography.hpp>
 #include<PREM.hpp>
 #include<GMT.hpp>
+#include<GetHomeDir.hpp>
 
 using namespace std;
 
 int main(){
 
-    auto tomo=Tomography("/home/shule/Research/t062.WholeMantleTomographyModels.180912/TX2000_dvs.nc");
+    auto tomo=Tomography(GetHomeDir()+"/Research/t062.WholeMantleTomographyModels.180912/TX2000_dvs.nc");
 
     // Example 1. One value at request location (depth, lon, lat).
 //     cout << tomo.GetValueAt(2343.5,253.03,-43.4) << endl;

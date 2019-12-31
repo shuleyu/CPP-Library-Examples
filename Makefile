@@ -10,9 +10,9 @@ Code     := UniQUEcoDeName
 
 # Compile flags & library dirs.
 COMP     := c++ -std=c++17 -Wall -fPIC
-INCDIR   := -I/usr/local/include -I$(SAC)/include -I./CPP-Library-Headers
+INCDIR   := -I/usr/local/include -I$(SAC)/include -I../Fun.C++.c003 # -I./CPP-Library-Headers
 LIBDIR   := -L/usr/local/lib -L$(SAC)/lib
-LIBS     := -lsac -lsacio -lgmt -lmariadb -larmadillo -lgsl -lgslcblas -lnetcdf -lfftw3 -lpthread -lm # -lmlpack
+LIBS     := -lsac -lsacio -lgmt -lmariadb -lsqlite3 -larmadillo -lgsl -lgslcblas -lnetcdf -lfftw3 -lpthread -lm # -lmlpack
 
 # by default, compile all cpp files.
 EGFILES  := $(wildcard *.cpp)

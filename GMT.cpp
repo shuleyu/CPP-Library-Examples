@@ -7,6 +7,7 @@
 #include<Lon2360.hpp>
 #include<Lon2180.hpp>
 #include<ShellExec.hpp>
+#include<GetHomeDir.hpp>
 
 using namespace std;
 
@@ -87,7 +88,7 @@ int main(){
 
     vector<vector<double>> grid;
 
-    ifstream fpin("/home/shule/Research/Fun.Bash.c001/ritsema.2880");
+    ifstream fpin(GetHomeDir()+"/Research/Fun.Bash.c001/ritsema.2880");
     double la,lo,val,xinc=1,yinc=1,minval=numeric_limits<double>::max(),maxval=-minval;
     while (fpin >> la >> lo >> val) {
         minval=min(minval,val);
