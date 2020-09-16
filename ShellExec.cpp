@@ -6,7 +6,8 @@ using namespace std;
 
 int main(){
 
-    cout  << ShellExec("ls") << endl;
+    auto a = ShellExec("mkdir /Users/shuleyu/Documents/Research/CPP-Library-Examples/jlsdf");
+    cout << a.size() << endl;
 
     return 0;
 }

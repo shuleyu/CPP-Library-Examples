@@ -1,6 +1,7 @@
 #include<iostream>
 #include<fstream>
 #include<random>
+#include<algorithm>
 
 #include<GMT.hpp>
 #include<CreateGlobeGrid.hpp>
@@ -16,7 +17,7 @@ int main(){
     bool PlotGrid=true;
 
     string outfile="GMT.ps";
-    size_t NRow=3,NCol=3;
+    size_t NRow=4,NCol=3;
     size_t row,col;
     double Len=5,SpaceRatio=0.1,XSIZE=(NCol+2*SpaceRatio)*Len,YSIZE=(NRow+SpaceRatio)*Len+1,xp,yp;
 
@@ -88,7 +89,7 @@ int main(){
 
     vector<vector<double>> grid;
 
-    ifstream fpin(GetHomeDir()+"/Research/Fun.Bash.c001/ritsema.2880");
+    ifstream fpin(GetHomeDir()+"/Documents/Research/Fun.Bash.c001/ritsema.2880");
     double la,lo,val,xinc=1,yinc=1,minval=numeric_limits<double>::max(),maxval=-minval;
     while (fpin >> la >> lo >> val) {
         minval=min(minval,val);
@@ -96,6 +97,8 @@ int main(){
         grid.push_back({Lon2360(lo),la,val});
     }
     fpin.close();
+    unsigned seed = std::chrono::system_clock::now().time_since_epoch().count();
+    shuffle(grid.begin(), grid.end(), std::default_random_engine(seed));
     minval=-2.5;maxval=2.5;
     GMT::makecpt("-Cpolar -T"+to_string(minval)+"/"+to_string(maxval)+"/0.5 -I -Z > tmp.cpt");
     GMT::grdimage(outfile,grid,xinc,yinc,"-JR180/"+to_string(Len*(1-SpaceRatio))+"i -Rg -Ctmp.cpt -O -K");
@@ -172,18 +175,28 @@ int main(){
 //     vector<vector<double>> data={{1.0,1.0},{3,-6},{0.5,0.5},{2,1}};
 //     GMT::psxy(outfile,data,"-JX"+to_string(Len)+"i -R-10/10/-10/10 -Sc0.15i -W1p,black -N -O -K");
     GMT::makecpt("-Cgray -T0/1 -I > tmp.cpt");
-    vector<vector<double>> data={{1.0,1.0,0.2,0.25},{3,-6,0.5,0.2},{0.3,0.6,0.7,0.15},{2,1,1.0,0.1}};
-    GMT::psxy(outfile,data,"-JX"+to_string(Len)+"i -R-10/10/-10/10 -Sc -Ctmp.cpt -W1p,black -N -O -K");
+    vector<vector<double>> data1{{1.0,1.0,0.2,0.25},{3,-6,0.5,0.2},{0.3,0.6,0.7,0.15},{2,1,1.0,0.1}};
+    GMT::psxy(outfile,data1,"-JX"+to_string(Len)+"i -R-10/10/-10/10 -Sc -Ctmp.cpt -W1p,black -N -O -K");
+    remove("tmp.cpt");
+
+
+    // psxy with different colors.
+    row=4,col=1;
+    xp=(col-1+SpaceRatio)*Len,yp=YSIZE-1-row*Len;
+    GMT::MoveReferencePoint(outfile,"-Xf"+to_string(xp)+"i -Yf"+to_string(yp)+"i");
+    //if (PlotGrid) GMT::psbasemap(outfile,"-JX"+to_string(Len)+"i -R-10/10/-10/10 -Bxa5g1 -Bya10g1 -BWSne -O -K");
+
+//     vector<vector<double>> data={{1.0,1.0},{3,-6},{0.5,0.5},{2,1}};
+//     GMT::psxy(outfile,data,"-JX"+to_string(Len)+"i -R-10/10/-10/10 -Sc0.15i -W1p,black -N -O -K");
+    GMT::makecpt("-Crainbow -T0/10 -I > tmp.cpt");
+    vector<vector<double>> data2{{1, 1, 1, 3.5}, {2, 3, 1, 1.5}}; //, {5, 5, 1, 3},{7, 7, 7, 5}};
+    GMT::psxyz(outfile, data2,"-JX"+to_string(Len)+"i -JZ" + to_string(Len) + "i -R0/10/0/10/0/10 -Su2u -W1p,black -Ctmp.cpt -Bx2+lXLABEL -By2+lYLABEL -Bz10+lZLABEL -BWSneZ1+t\"3-D PLOT\" -t50 -p135/30 -N -O -K");
     remove("tmp.cpt");
 
 
     // Seal the page.
     GMT::SealPlot(outfile,XSIZE,YSIZE);
-
-    string pdffile=__FILE__;
-    pdffile=pdffile.substr(0,pdffile.find(".cpp"))+".pdf";
-    ShellExec("ps2pdf "+outfile+" "+pdffile);
-    remove(outfile.c_str());
+    GMT::ps2pdf(outfile, __FILE__);
 
     return 0;
 }
